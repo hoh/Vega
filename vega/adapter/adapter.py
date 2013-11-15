@@ -16,33 +16,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import pytest
-from vega import Scrambler
 
-
-def test_msg():
-    s = Scrambler()
-    with pytest.raises(TypeError):
-        s.msg()
-    with pytest.raises(TypeError):
-        s.msg('Hello')
-    s.msg('Hello', 'Bob')
-
-
-def test_post():
-    s = Scrambler()
-    s.post('Bob', 'Hello', conversation=None)
-    #s.post('Bob', 'Hello', conversation=0)
-
-
-def test_browse():
-    s = Scrambler()
-    s.browse('Bob')
-    s.browse('Bob', limit=10)
-
-
-def test_read():
-    conversation = 10
-    s = Scrambler()
-    s.read(conversation)
-    s.read(conversation, limit=10)
+class Adapter:
+    'Shared ancestor for Adapters to connect to Social Networks'
