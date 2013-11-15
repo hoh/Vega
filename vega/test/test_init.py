@@ -17,42 +17,18 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 __author__ = 'Hugo Herter http://hugoherter.com'
-__version__ = 0.01
+
+import pytest
+import vega
 
 
-# --- Active actions ---
-
-def msg(recipient, message):
-    '''
-    Send ``message`` to ``recipient``.
-    Returns the message id.
-    '''
-    pass
+def test_msg():
+    with pytest.raises(TypeError):
+        vega.msg()
+    with pytest.raises(TypeError):
+        vega.msg('Hello')
+    vega.msg('Hello', 'Bob')
 
 
-def post(recipient, message, conversation=None):
-    '''
-    Post ``message`` on the wall of ``recipient``.
-    If ``conversation``is None, a new conversation is created.
-
-    Returns the conversation id and the post id.
-    '''
-    pass
-
-
-# --- Passive actions ---
-
-def browse(recipient, limit=None):
-    '''
-    Returns the conversation id for the ``limit`` latest conversations
-    on ``recipient``'s wall.
-    '''
-    pass
-
-
-def read(conversation, limit=None):
-    '''
-    Returns the message id for the ``limit`` latest messages
-    in ``conversation``.
-    '''
+def test_post():
     pass
