@@ -19,10 +19,11 @@
 import pytest
 from vega.scrambler import ProxyScrambler
 from vega.adapter import DummyAdapter
+from vega.cipher import DummyCipher
 
 
 def test_msg():
-    s = ProxyScrambler(DummyAdapter())
+    s = ProxyScrambler(DummyAdapter(), DummyCipher())
     with pytest.raises(TypeError):
         s.msg()
     with pytest.raises(TypeError):
@@ -31,19 +32,19 @@ def test_msg():
 
 
 def test_post():
-    s = ProxyScrambler(DummyAdapter())
+    s = ProxyScrambler(DummyAdapter(), DummyCipher())
     s.post('Bob', 'Hello', conversation=None)
     #s.post('Bob', 'Hello', conversation=0)
 
 
 def test_browse():
-    s = ProxyScrambler(DummyAdapter())
+    s = ProxyScrambler(DummyAdapter(), DummyCipher())
     s.browse('Bob')
     s.browse('Bob', limit=10)
 
 
 def test_read():
     conversation = 10
-    s = ProxyScrambler(DummyAdapter())
+    s = ProxyScrambler(DummyAdapter(), DummyCipher())
     s.read(conversation)
     s.read(conversation, limit=10)

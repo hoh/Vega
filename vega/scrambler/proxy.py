@@ -25,11 +25,12 @@ class ProxyScrambler(Scrambler):
     Scrambler with no scrambling, only proxies messages to/from the adapter.
     '''
 
-    def __init__(self, adapter):
+    def __init__(self, adapter, cipher):
         '''
         Initializes a new Scrambler with the given adapter.
         '''
         self.adapter = adapter
+        self.cipher = cipher
 
     def login(self):
         pass
@@ -39,21 +40,30 @@ class ProxyScrambler(Scrambler):
 
     # --- Active actions ---
 
-    def msg(self, recipient, message):
+    def msg(self, recipient, message, readers=None):
         '''
         Send ``message`` to ``recipient``.
         Returns the message id.
         '''
-        pass
 
-    def post(self, recipient, message, conversation=None):
+        # By default, only me and the recipient can decrypt messages.
+        readers = readers if readers else (recipient, 'me')
+        encrypted_message = self.cipher.encrypt(message, readers)
+        self.adapter.msg(recipient, encrypted_message)
+
+    def post(self, recipient, message, conversation=None, readers=None):
         '''
         Post ``message`` on the wall of ``recipient``.
         If ``conversation``is None, a new conversation is created.
 
         Returns the conversation id and the post id.
         '''
-        pass
+
+        # By default, only me and the wall's owner can decrypt messages.
+        readers = readers if readers else (recipient, 'me')
+        encrypted_message = self.cipher.encrypt(message, readers)
+
+        self.adapter.post(recipient, encrypted_message, conversation=False)
 
     # --- Passive actions ---
 
@@ -62,11 +72,13 @@ class ProxyScrambler(Scrambler):
         Returns the conversation id for the ``limit`` latest conversations
         on ``recipient``'s wall.
         '''
-        pass
+        conversations = self.adapter.browse(recipient, limit)
+        return conversations
 
     def read(self, conversation, limit=None):
         '''
         Returns the message id for the ``limit`` latest messages
         in ``conversation``.
         '''
-        pass
+        conversation = self.adapter.read(conversation, limit)
+        return conversation.decrypt(self.cipher)
