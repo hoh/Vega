@@ -20,39 +20,38 @@ __author__ = 'Hugo Herter http://hugoherter.com'
 __version__ = 0.01
 
 
-# --- Active actions ---
+class Scrambler:
 
-def msg(recipient, message):
-    '''
-    Send ``message`` to ``recipient``.
-    Returns the message id.
-    '''
-    pass
+    # --- Active actions ---
 
+    def msg(self, recipient, message):
+        '''
+        Send ``message`` to ``recipient``.
+        Returns the message id.
+        '''
+        pass
 
-def post(recipient, message, conversation=None):
-    '''
-    Post ``message`` on the wall of ``recipient``.
-    If ``conversation``is None, a new conversation is created.
+    def post(self, recipient, message, conversation=None):
+        '''
+        Post ``message`` on the wall of ``recipient``.
+        If ``conversation``is None, a new conversation is created.
 
-    Returns the conversation id and the post id.
-    '''
-    pass
+        Returns the conversation id and the post id.
+        '''
+        pass
 
+    # --- Passive actions ---
 
-# --- Passive actions ---
+    def browse(self, recipient, limit=None):
+        '''
+        Returns the conversation id for the ``limit`` latest conversations
+        on ``recipient``'s wall.
+        '''
+        pass
 
-def browse(recipient, limit=None):
-    '''
-    Returns the conversation id for the ``limit`` latest conversations
-    on ``recipient``'s wall.
-    '''
-    pass
-
-
-def read(conversation, limit=None):
-    '''
-    Returns the message id for the ``limit`` latest messages
-    in ``conversation``.
-    '''
-    pass
+    def read(self, conversation, limit=None):
+        '''
+        Returns the message id for the ``limit`` latest messages
+        in ``conversation``.
+        '''
+        pass

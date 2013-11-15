@@ -19,16 +19,32 @@
 __author__ = 'Hugo Herter http://hugoherter.com'
 
 import pytest
-import vega
+from vega import Scrambler
 
 
 def test_msg():
+    s = Scrambler()
     with pytest.raises(TypeError):
-        vega.msg()
+        s.msg()
     with pytest.raises(TypeError):
-        vega.msg('Hello')
-    vega.msg('Hello', 'Bob')
+        s.msg('Hello')
+    s.msg('Hello', 'Bob')
 
 
 def test_post():
-    pass
+    s = Scrambler()
+    s.post('Bob', 'Hello', conversation=None)
+    #s.post('Bob', 'Hello', conversation=0)
+
+
+def test_browse():
+    s = Scrambler()
+    s.browse('Bob')
+    s.browse('Bob', limit=10)
+
+
+def test_read():
+    conversation = 10
+    s = Scrambler()
+    s.read(conversation)
+    s.read(conversation, limit=10)
