@@ -17,11 +17,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import pytest
-from vega import Scrambler
+from vega.scrambler import ProxyScrambler
+from vega.adapter import DummyAdapter
 
 
 def test_msg():
-    s = Scrambler()
+    s = ProxyScrambler(DummyAdapter())
     with pytest.raises(TypeError):
         s.msg()
     with pytest.raises(TypeError):
@@ -30,19 +31,19 @@ def test_msg():
 
 
 def test_post():
-    s = Scrambler()
+    s = ProxyScrambler(DummyAdapter())
     s.post('Bob', 'Hello', conversation=None)
     #s.post('Bob', 'Hello', conversation=0)
 
 
 def test_browse():
-    s = Scrambler()
+    s = ProxyScrambler(DummyAdapter())
     s.browse('Bob')
     s.browse('Bob', limit=10)
 
 
 def test_read():
     conversation = 10
-    s = Scrambler()
+    s = ProxyScrambler(DummyAdapter())
     s.read(conversation)
     s.read(conversation, limit=10)
