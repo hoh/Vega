@@ -33,6 +33,6 @@ class DummyReceiver:
     @log
     def fetch(self):
         emitter = self.contacts['Alice']
-        encrypted_text = 'Hello Alice !'
+        encrypted_text = 'Uryyb Nyvpr !'
         date = time.time()
         self.output.message(emitter, encrypted_text, date)

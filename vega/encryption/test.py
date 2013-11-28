@@ -16,20 +16,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from codecs import getencoder, getdecoder
+
 from vega.analyzer import log
 
 
 class DummyEncryption:
 
+    encode = getencoder('rot-13')
+
     @log
     def message(self, recipient, text):
-        encrypted_text = text
+        encrypted_text = self.encode(text)
         self.output.message(recipient, encrypted_text)
 
 
 class DummyDecryption:
 
+    decode = getdecoder('rot-13')
+
     @log
     def message(self, emitter, encrypted_text, date):
-        decrypted_text = encrypted_text
+        decrypted_text = self.decode(encrypted_text)[0]
         self.output.message(emitter, decrypted_text, date)
