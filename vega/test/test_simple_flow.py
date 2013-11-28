@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
+
 from vega.interfaces.test import TestInterface
 from vega.generators.test import EmptyGenerator
 from vega.mixers import AdditionMixer
@@ -26,8 +28,10 @@ from vega.adapters.test import DummyReceiver
 from vega.encryption.test import DummyDecryption
 from vega.filters.test import DummyFilter
 
+from vega.contacts.test import TestContacts
 
-def test_emission_initialisation():
+
+def test_emission_initialization():
     interface = TestInterface()
     generator = EmptyGenerator()
     mixer = AdditionMixer()
@@ -41,7 +45,7 @@ def test_emission_initialisation():
     assert emitter
 
 
-def test_reception_initialisation():
+def test_reception_initialization():
     interface = TestInterface()
     receiver = DummyReceiver()
     decryption = DummyDecryption()
@@ -51,6 +55,12 @@ def test_reception_initialisation():
     assert receiver
     assert decryption
     assert filter
+
+
+def test_contacts_initialization():
+    contacts = TestContacts()
+
+    assert contacts
 
 
 def test_emission_link():
@@ -77,5 +87,20 @@ def test_reception_link():
     filter.output = interface
 
 
+def test_flow():
+    interface = TestInterface()
+    generator = EmptyGenerator()
+    mixer = AdditionMixer()
+    encryption = DummyEncryption()
+    emitter = DummyEmitter()
 
+    interface.output = mixer
+    generator.output = mixer
+    mixer.output = encryption
+    encryption.output = emitter
 
+    contacts = TestContacts()
+
+    recipient = contacts['Alice']
+    date = time.time()
+    interface.message(recipient, 'Hello Alice !', date)

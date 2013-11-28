@@ -17,12 +17,17 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-class DummyEncryption:
+class TestContact:
 
-    def message(self, recipient, text):
-        encrypted_text = text
-        self.output.message(recipient, encrypted_text)
+    def __init__(self, name):
+        self.name = name
 
 
-class DummyDecryption:
-    pass
+class TestContacts:
+
+    contacts = {
+        'Alice': TestContact('Alice'),
+    }
+
+    def __getitem__(self, name):
+        return self.contacts[name]

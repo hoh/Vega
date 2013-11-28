@@ -18,4 +18,6 @@
 
 
 class TestInterface:
-    pass
+
+    def message(self, recipient, text, date):
+        self.output.message(recipient, text, date)

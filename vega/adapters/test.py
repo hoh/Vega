@@ -18,7 +18,9 @@
 
 
 class DummyEmitter:
-    pass
+
+    def message(self, recipient, encrypted_text):
+        pass
 
 
 class DummyReceiver:
