@@ -16,20 +16,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+'''
+Allows two test WebApp instances to send messages to each other.
+'''
 
-class TestContact:
+import time
+import requests
 
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return "<Contact {}>".format(self.name)
+from vega.analyzer import log
 
 
-class TestContacts(dict):
+class WebAppEmitter:
 
-    def __init__(self):
-        self.update({
-            'Alice': TestContact('Alice'),
-            'Bob': TestContact('Bob'),
-        })
+    def __init__(self, URL):
+        self.URL = URL
+
+    @log
+    def message(self, recipient, encrypted_text):
+        requests.post(
+            self.URL,
+            data={
+                'recipient': recipient,
+                'encrypted_text': encrypted_text,
+                'date': time.time(),
+                })
+
+
+class WebAppReceiver:
+
+    @log
+    def fetch(self):
+        emitter = self.contacts['Alice']
+        encrypted_text = 'Uryyb Nyvpr !'
+        date = time.time()
+        self.output.message(emitter, encrypted_text, date)

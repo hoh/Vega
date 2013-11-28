@@ -27,7 +27,7 @@ class DummyEncryption:
 
     @log
     def message(self, recipient, text):
-        encrypted_text = self.encode(text)
+        encrypted_text = self.encode(text)[0]
         self.output.message(recipient, encrypted_text)
 
 

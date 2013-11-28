@@ -16,20 +16,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from vega.interfaces.cli import CLIInterface
+from vega.generators.test import EmptyGenerator
+from vega.mixers import AdditionMixer
+from vega.encryption.test import DummyEncryption
+from vega.adapters.test import DummyEmitter
 
-class TestContact:
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return "<Contact {}>".format(self.name)
+from vega.contacts.test import TestContacts
 
 
-class TestContacts(dict):
+def main():
+    interface = CLIInterface()
+    generator = EmptyGenerator()
+    mixer = AdditionMixer()
+    encryption = DummyEncryption()
+    emitter = DummyEmitter()
 
-    def __init__(self):
-        self.update({
-            'Alice': TestContact('Alice'),
-            'Bob': TestContact('Bob'),
-        })
+    contacts = TestContacts()
+
+    interface.output = mixer
+    generator.output = mixer
+    mixer.output = encryption
+    encryption.output = emitter
+
+    interface.contacts = contacts
+
+    interface.run()
+
+if __name__ == '__main__':
+    main()

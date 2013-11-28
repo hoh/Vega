@@ -20,11 +20,7 @@ from vega.interfaces.web import WebInterface
 from vega.generators.test import EmptyGenerator
 from vega.mixers import AdditionMixer
 from vega.encryption.test import DummyEncryption
-from vega.adapters.test import DummyEmitter
-
-from vega.adapters.test import DummyReceiver
-from vega.encryption.test import DummyDecryption
-from vega.filters.test import DummyFilter
+from vega.adapters.webapp import WebAppEmitter
 
 from vega.contacts.test import TestContacts
 
@@ -34,11 +30,7 @@ def main():
     generator = EmptyGenerator()
     mixer = AdditionMixer()
     encryption = DummyEncryption()
-    emitter = DummyEmitter()
-
-    receiver = DummyReceiver()
-    decryption = DummyDecryption()
-    filter = DummyFilter()
+    emitter = WebAppEmitter('http://localhost:8081/api')
 
     contacts = TestContacts()
 
@@ -47,12 +39,6 @@ def main():
     mixer.output = encryption
     encryption.output = emitter
 
-    receiver.output = decryption
-    decryption.output = filter
-    filter.output = interface
-
-    contacts = TestContacts()
-    receiver.contacts = contacts
     interface.contacts = contacts
 
     interface.run()
