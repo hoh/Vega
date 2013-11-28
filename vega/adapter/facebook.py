@@ -22,3 +22,5 @@ To be implemented.
 Documentation can be found here:
     [https://github.com/pythonforfacebook/facebook-sdk]
 '''
+
+raise NotImplementedError
