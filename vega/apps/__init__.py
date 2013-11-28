@@ -15,23 +15,3 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-
-class TestContact:
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return "<Contact {}>".format(self.name)
-
-
-class TestContacts:
-
-    contacts = {
-        'Alice': TestContact('Alice'),
-        'Bob': TestContact('Bob'),
-    }
-
-    def __getitem__(self, name):
-        return self.contacts[name]
