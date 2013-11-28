@@ -101,6 +101,8 @@ def test_emission_flow():
 
     contacts = TestContacts()
 
+    generator.populate()
+
     recipient = contacts['Alice']
     date = time.time()
     interface.send_message(recipient, 'Hello Alice !', date)

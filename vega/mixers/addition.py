@@ -16,8 +16,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from vega.analyzer import log
+
 
 class AdditionMixer:
 
+    @log
     def message(self, recipient, text, date):
         self.output.message(recipient, text)

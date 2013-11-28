@@ -18,15 +18,19 @@
 
 import time
 
+from vega.analyzer import log
+
 
 class DummyEmitter:
 
+    @log
     def message(self, recipient, encrypted_text):
         print("Sending to {} : {}".format(recipient, encrypted_text))
 
 
 class DummyReceiver:
 
+    @log
     def fetch(self):
         emitter = self.contacts['Alice']
         encrypted_text = 'Hello Alice !'

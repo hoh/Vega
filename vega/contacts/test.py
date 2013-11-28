@@ -22,6 +22,9 @@ class TestContact:
     def __init__(self, name):
         self.name = name
 
+    def __repr__(self):
+        return "<Contact {}>".format(self.name)
+
 
 class TestContacts:
 

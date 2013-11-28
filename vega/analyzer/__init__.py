@@ -17,7 +17,29 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-class Scrambler:
-    '''
-    Shared ancestor for Scramblers to dissimulate user communication patterns.
-    '''
+def log_print(function):
+    'Decorator; Prints actions to stdout.'
+
+    def log_and_call(*args, **kwargs):
+        print(function, args, kwargs)
+        function(*args, **kwargs)
+    return log_and_call
+
+
+def log_file(function):
+    'Decorator; Prints actions to stdout.'
+
+    def log_and_call(*args, **kwargs):
+        open('/tmp/scamblex-logs.txt', 'ab').write(
+            bytes('{}.{} {} {}\n'.format(
+                args[0].__class__.__name__,
+                function.__name__,
+                args[1:],
+                kwargs), 'utf-8')
+        )
+        function(*args, **kwargs)
+    return log_and_call
+
+
+# Defining default logging decorator:
+log = log_file

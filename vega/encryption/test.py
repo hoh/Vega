@@ -16,9 +16,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from vega.analyzer import log
+
 
 class DummyEncryption:
 
+    @log
     def message(self, recipient, text):
         encrypted_text = text
         self.output.message(recipient, encrypted_text)
@@ -26,6 +29,7 @@ class DummyEncryption:
 
 class DummyDecryption:
 
+    @log
     def message(self, emitter, encrypted_text, date):
         decrypted_text = encrypted_text
         self.output.message(emitter, decrypted_text, date)
