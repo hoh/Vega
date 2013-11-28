@@ -19,5 +19,8 @@
 
 class TestInterface:
 
-    def message(self, recipient, text, date):
+    def send_message(self, recipient, text, date):
         self.output.message(recipient, text, date)
+
+    def recv_message(self, emitter, text, date):
+        pass

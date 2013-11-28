@@ -87,7 +87,7 @@ def test_reception_link():
     filter.output = interface
 
 
-def test_flow():
+def test_emission_flow():
     interface = TestInterface()
     generator = EmptyGenerator()
     mixer = AdditionMixer()
@@ -103,4 +103,20 @@ def test_flow():
 
     recipient = contacts['Alice']
     date = time.time()
-    interface.message(recipient, 'Hello Alice !', date)
+    interface.send_message(recipient, 'Hello Alice !', date)
+
+
+def test_reception_flow():
+    receiver = DummyReceiver()
+    decryption = DummyDecryption()
+    filter = DummyFilter()
+    interface = TestInterface()
+
+    receiver.output = decryption
+    decryption.output = filter
+    filter.output = interface
+
+    contacts = TestContacts()
+    receiver.contacts = contacts
+
+    receiver.fetch()

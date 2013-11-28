@@ -16,12 +16,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
+
 
 class DummyEmitter:
 
     def message(self, recipient, encrypted_text):
-        pass
+        print("Sending to {} : {}".format(recipient, encrypted_text))
 
 
 class DummyReceiver:
-    pass
+
+    def fetch(self):
+        emitter = self.contacts['Alice']
+        encrypted_text = 'Hello Alice !'
+        date = time.time()
+        self.output.message(emitter, encrypted_text, date)

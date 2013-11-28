@@ -25,4 +25,7 @@ class DummyEncryption:
 
 
 class DummyDecryption:
-    pass
+
+    def message(self, emitter, encrypted_text, date):
+        decrypted_text = encrypted_text
+        self.output.message(emitter, decrypted_text, date)

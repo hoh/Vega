@@ -18,4 +18,11 @@
 
 
 class DummyFilter:
-    pass
+
+    def message(self, emitter, text, date):
+
+        # Never drop a message:
+        if True:
+            self.output.recv_message(emitter, text, date)
+        else:
+            return  # Drop the message
