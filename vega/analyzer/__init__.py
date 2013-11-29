@@ -37,7 +37,7 @@ def log_file(function):
                 args[1:],
                 kwargs), 'utf-8')
         )
-        function(*args, **kwargs)
+        return function(*args, **kwargs)
     return log_and_call
 
 

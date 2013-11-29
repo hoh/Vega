@@ -16,11 +16,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
+import threading
+
 from vega.analyzer import log
 
 
 class AdditionMixer:
 
+    # Set this to false to stop the mixer's mainloop:
+    run = True
+
+    def __init__(self, generator):
+        self.generator = generator
+
     @log
     def message(self, recipient, text, date):
+        'Immediately proxies real messages to the output module.'
         self.output.message(recipient, text)
+
+    def loop(self):
+        'Main loop for dummy messages generation.'
+        while True:
+            message = self.generator.pop()
+            time.sleep(message['date'] - time.time())
+            self.output.message(message['recipient'], message['text'])
+
+    def start_loop(self):
+        self.loop_thread = threading.Thread(target=self.loop)
+        self.loop_thread.start()

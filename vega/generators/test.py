@@ -16,12 +16,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
+
 from vega.analyzer import log
 
 
 class EmptyGenerator:
 
     @log
-    def populate(self):
+    def populate(self, dt):
         # Populate with zero message:
-        pass
+        return []
+
+
+class FixedIntervalGenerator:
+
+    interval = 2
+
+    @log
+    def pop(self):
+        message = {
+            'recipient': self.contacts['Alice'],
+            'text': '',
+            'date': time.time() + self.interval,
+        }
+        return message

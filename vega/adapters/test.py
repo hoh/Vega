@@ -25,7 +25,8 @@ class DummyEmitter:
 
     @log
     def message(self, recipient, encrypted_text):
-        print("Sending to {} : {}".format(recipient, encrypted_text))
+        #print("Sending to {} : {}".format(recipient, encrypted_text))
+        pass
 
 
 class DummyReceiver:

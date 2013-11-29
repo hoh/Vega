@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from vega.interfaces.cli import CLIInterface
-from vega.generators.test import EmptyGenerator
+from vega.generators.test import FixedIntervalGenerator
 from vega.mixers import AdditionMixer
 from vega.encryption.test import DummyEncryption
 from vega.adapters.test import DummyEmitter
@@ -27,8 +27,8 @@ from vega.contacts.test import TestContacts
 
 def main():
     interface = CLIInterface()
-    generator = EmptyGenerator()
-    mixer = AdditionMixer()
+    generator = FixedIntervalGenerator()
+    mixer = AdditionMixer(generator)
     encryption = DummyEncryption()
     emitter = DummyEmitter()
 
@@ -40,7 +40,9 @@ def main():
     encryption.output = emitter
 
     interface.contacts = contacts
+    generator.contacts = contacts
 
+    mixer.start_loop()
     interface.run()
 
 if __name__ == '__main__':
