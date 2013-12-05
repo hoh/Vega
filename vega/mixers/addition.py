@@ -38,9 +38,14 @@ class AdditionMixer:
     def loop(self):
         'Main loop for dummy messages generation.'
         while True:
-            message = self.generator.pop()
-            time.sleep(message['date'] - time.time())
-            self.output.message(message['recipient'], message['text'])
+            messages = self.generator.gen()
+            import pprint
+            pprint.pprint(messages)
+            for message in messages:
+                dt = message['date'] - time.time()
+                if dt > 0:
+                    time.sleep(dt)
+                    self.output.message(message['recipient'], message['text'])
 
     def start_loop(self):
         self.loop_thread = threading.Thread(target=self.loop)

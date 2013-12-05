@@ -35,9 +35,9 @@ class CLIInterface:
     def run(self):
         try:
             while True:
-                recipient = input('Recipient [Alice]: ')
+                recipient = input('Recipient [Bob]: ')
                 if not recipient:
-                    recipient = 'Alice'
+                    recipient = 'Bob'
                 if recipient not in self.contacts:
                     print('Unknown contact: {}'.format(recipient))
                     continue

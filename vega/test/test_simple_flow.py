@@ -34,7 +34,7 @@ from vega.contacts.test import TestContacts
 def test_emission_initialization():
     interface = TestInterface()
     generator = EmptyGenerator()
-    mixer = AdditionMixer()
+    mixer = AdditionMixer(generator)
     encryption = DummyEncryption()
     emitter = DummyEmitter()
 
@@ -66,7 +66,7 @@ def test_contacts_initialization():
 def test_emission_link():
     interface = TestInterface()
     generator = EmptyGenerator()
-    mixer = AdditionMixer()
+    mixer = AdditionMixer(generator)
     encryption = DummyEncryption()
     emitter = DummyEmitter()
 
@@ -90,7 +90,7 @@ def test_reception_link():
 def test_emission_flow():
     interface = TestInterface()
     generator = EmptyGenerator()
-    mixer = AdditionMixer()
+    mixer = AdditionMixer(generator)
     encryption = DummyEncryption()
     emitter = DummyEmitter()
 
@@ -101,11 +101,11 @@ def test_emission_flow():
 
     contacts = TestContacts()
 
-    generator.populate()
+    generator.gen()
 
-    recipient = contacts['Alice']
+    recipient = contacts['Bob']
     date = time.time()
-    interface.send_message(recipient, 'Hello Alice !', date)
+    interface.send_message(recipient, 'Hello Bob !', date)
 
 
 def test_reception_flow():

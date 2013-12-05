@@ -32,4 +32,6 @@ class TestContacts(dict):
         self.update({
             'Alice': TestContact('Alice'),
             'Bob': TestContact('Bob'),
+            'Charlie': TestContact('Charlie'),
+            'David': TestContact('David'),
         })

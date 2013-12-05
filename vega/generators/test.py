@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import time
+import random
 
 from vega.analyzer import log
 
@@ -24,7 +25,7 @@ from vega.analyzer import log
 class EmptyGenerator:
 
     @log
-    def populate(self, dt):
+    def gen(self):
         # Populate with zero message:
         return []
 
@@ -32,12 +33,26 @@ class EmptyGenerator:
 class FixedIntervalGenerator:
 
     interval = 2
+    duration = 10
 
     @log
     def pop(self):
         message = {
-            'recipient': self.contacts['Alice'],
+            'recipient': self.contacts['Charlie'],
             'text': '',
             'date': time.time() + self.interval,
         }
         return message
+
+    @log
+    def gen(self):
+        n = 10
+        interval = float(self.duration) / n
+
+        return [
+            {'recipient': self.contacts['Charlie'],
+             'text': '',
+             'date': time.time() + (interval * i),
+             }
+            for i in range(n)
+        ]
