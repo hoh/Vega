@@ -39,13 +39,16 @@ class AdditionMixer:
         'Main loop for dummy messages generation.'
         while True:
             messages = self.generator.gen()
+            print('Generated:')
             import pprint
             pprint.pprint(messages)
             for message in messages:
                 dt = message['date'] - time.time()
+                print('-- waiting...')
                 if dt > 0:
                     time.sleep(dt)
-                    self.output.message(message['recipient'], message['text'])
+                self.output.message(message['recipient'], message['text'])
+                print('-- message sent.')
 
     def start_loop(self):
         self.loop_thread = threading.Thread(target=self.loop)

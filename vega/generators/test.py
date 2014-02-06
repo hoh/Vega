@@ -33,7 +33,7 @@ class EmptyGenerator:
 class FixedIntervalGenerator:
 
     interval = 2
-    duration = 10
+    duration = 5
 
     @log
     def pop(self):
@@ -46,13 +46,15 @@ class FixedIntervalGenerator:
 
     @log
     def gen(self):
-        n = 10
+        n = 3
         interval = float(self.duration) / n
 
-        return [
+        messages = [
             {'recipient': self.contacts['Charlie'],
-             'text': '',
+             'text': '?DUMMY:',
              'date': time.time() + (interval * i),
              }
             for i in range(n)
         ]
+        messages = sorted(messages, key=lambda x: x['date'])
+        return messages

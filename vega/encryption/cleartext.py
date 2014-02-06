@@ -21,21 +21,15 @@ from codecs import getencoder, getdecoder
 from vega.analyzer import log
 
 
-class DummyEncryption:
-
-    encode = getencoder('rot-13')
+class ClearTextEncryption:
 
     @log
     def message(self, recipient, text):
-        encrypted_text = '.' + self.encode(text)[0]
-        self.output.message(recipient, encrypted_text)
+        self.output.message(recipient, text)
 
 
-class DummyDecryption:
-
-    decode = getdecoder('rot-13')
+class ClearTextDecryption:
 
     @log
     def message(self, emitter, encrypted_text, date):
-        decrypted_text = self.decode(encrypted_text)[0]
-        self.output.message(emitter, decrypted_text, date)
+        self.output.message(emitter, encrypted_text, date)
